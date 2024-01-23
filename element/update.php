@@ -21,8 +21,6 @@
         die("Connection failed: " . $conn->connect_error);
         }
 
-
-        // Insert data into SQL table using prepared statement
         $sql = "INSERT INTO formdata (id, firstname, lastname, phone, email) VALUES ('$id','$firstname', '$last_name', '$phone', '$email')";
 
         if ($conn->query($sql) === TRUE) {
