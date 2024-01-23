@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <link rel="icon" type="image/x-icon" href="data:image/png;base64,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">
+        <script src="demo.js"></script>
+        <link rel="stylesheet" href="index.css">
+        <title>Php project</title>
+</head>
+<body>
+        <div class="container mt-5">
+                <div class="row justify-content-center" ng-controller="signupctrl">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0">Signup for New account</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="http://localhost/php%20tutorial%20lp/login.html" ng-submit="submitsigninForm()" method="post">
+                                    <div class="form-group">
+                                        <label for="username">Username:</label>
+                                        <input type="text" class="form-control" id="username" name="username" required>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="password">Password:</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                    </div>
+                                    <span class="float-start col-12 d-flex justify-content-center my-3">
+                                        <button type="submit" class="btn btn-primary">Login</button>
+                                    </span>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+</html>
