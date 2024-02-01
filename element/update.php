@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$servername = "localhost";
+$servername = "192.164.1.42";
 $username = "root";
 $password = "123456";
 $database = "phpfirstproject";
