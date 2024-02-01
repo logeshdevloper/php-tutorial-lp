@@ -1,33 +1,69 @@
 <?php
+header('Content-Type: application/json');
 
-         // Retrieve form data
-         $id = $_POST['id'];
-         $firstname = $_POST['firstname'];
-         $last_name = $_POST['lastname'];
-         $phone =  $_POST['phone'];
-         $email = $_POST['email'];
+$servername = "localhost";
+$username = "root";
+$password = "123456";
+$database = "phpfirstproject";
 
+// Create a connection
+$conn = new mysqli($servername, $username, $password, $database);
 
-        $servername = "localhost";
-        $username = "root";
-        $password = "123456";
-        $database = "phpfirstproject";
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-        // Create a connection
-        $conn = new mysqli($servername, $username, $password, $database);
+// Function to sanitize data and prevent SQL injection
+function sanitizeInput($conn, $input) {
+    return mysqli_real_escape_string($conn, $input);
+}
 
-        // Check the connection
-        if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+// Check the HTTP method
+$method = $_SERVER['REQUEST_METHOD'];
+
+if ($method === 'GET') {
+    // SELECT operation
+    $sql = "SELECT * FROM newformdata";
+    $result = $conn->query($sql);
+
+    if ($result === FALSE) {
+        $response['error'] = "Error: " . $sql . "<br>" . $conn->error;
+    } else {
+        $data = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
         }
 
-        $sql = "INSERT INTO formdata (id, firstname, lastname, phone, email) VALUES ('$id','$firstname', '$last_name', '$phone', '$email')";
+        $response['data'] = $data;
+    }
+} elseif ($method === 'POST') {
+    // INSERT operation
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    $firstname = sanitizeInput($conn, $data['firstname']);
+    $lastname = sanitizeInput($conn, $data['lastname']);
+    $email = sanitizeInput($conn, $data['email']);
+
+    if ($firstname == '' || $lastname == '' || $email == '') {
+        $response = array("error" => "Firstname, lastname, and email cannot be empty.");
+    } else {
+        $sql = "INSERT INTO newformdata (firstname, lastname, email) VALUES ('$firstname', '$lastname', '$email')";
 
         if ($conn->query($sql) === TRUE) {
-                echo "New record added successfully.";
+            $response = array("success" => "New record added successfully.", "data" => array("firstname" => $firstname, "lastname" => $lastname, "email" => $email));
         } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+            $response = array("error" => "Error: " . $sql . "<br>" . $conn->error);
         }
+    }
+} else {
+    $response = array("error" => "Unsupported HTTP method.");
+}
 
-        $conn->close();
+echo json_encode($response);
+
+$conn->close();
 ?>

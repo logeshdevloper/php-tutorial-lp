@@ -3,11 +3,8 @@ var app = angular.module('myapp', []);
 app.controller('phpctrl', function ($scope, $http, $sce) {
     $scope.showdetails = false;
     $scope.showdetailsPages = false;
-    $scope.formData = {
-        id: '',
-        name: '',
-        pass: '',
-    };
+    $scope.formData = {};
+    $scope.formdata = {};
     
 
     $http.get('script.php?table=jobs').then(function (res) {
@@ -34,11 +31,24 @@ app.controller('phpctrl', function ($scope, $http, $sce) {
 
     $scope.submitForm = function () {
         console.log($scope.formData);
-        // Make an HTTP POST request to your PHP script to update the SQL table
-        $http.post('element/.php', $scope.formData).then(function (response) {
-                console.log(response.data);
-            })
+        $http.post('update.php', JSON.stringify($scope.formData), { headers: { 'Content-Type': 'application/json' } }).then(
+            function (response) {
+                console.log(response);
+            },
+            function (error) {
+                console.error('Error updating data:', error);
+            }
+        );
     };
+    
+    $scope.formsdetails = function(){
+        console.log($('#staticBackdrop'));
+        $http.get('update.php').then(function (res) {
+            console.log(res.data);
+            $scope.frmsdetails = res.data;
+        });
+    };
+    
 
 
 });
