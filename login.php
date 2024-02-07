@@ -11,7 +11,7 @@
         $password = $_POST['password'];
 
         // Connect to the database (replace with your database credentials)
-        $servername = "localhost";
+        $servername = "192.164.1.42";
         $username_db = "root";
         $password_db = "123456";
         $database = "phpfirstproject";

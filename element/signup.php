@@ -5,11 +5,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve data from the request body
     $data = json_decode(file_get_contents("php://input"), true);
 
-    // Create a connection
-    $servername = "localhost";
-    $username = "root";
-    $password = "123456";
-    $database = "phpfirstproject";
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "123456";
+        $database = "phpfirstproject";
 
     // Create a connection
     $conn = new mysqli($servername, $username, $password, $database);
