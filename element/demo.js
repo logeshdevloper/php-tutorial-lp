@@ -4,7 +4,7 @@ app.controller('phpctrl', function ($scope, $http, $sce) {
     $scope.showdetails = false;
     $scope.showdetailsPages = false;
     $scope.formData = {};
-    $scope.formdata = {};
+    $scope.frmsdetails = [];
     
 
     $http.get('script.php?table=jobs').then(function (res) {
@@ -42,7 +42,6 @@ app.controller('phpctrl', function ($scope, $http, $sce) {
     };
     
     $scope.formsdetails = function(){
-        console.log($('#staticBackdrop'));
         $http.get('update.php').then(function (res) {
             console.log(res.data);
             $scope.frmsdetails = res.data;
@@ -55,8 +54,12 @@ app.controller('phpctrl', function ($scope, $http, $sce) {
 
 app.controller('signupctrl', function ($scope, $http, $sce) {
     $scope.submitsigninForm = function(){
-        $http.post('signup.php').then(function (res) {
-            console.log(res);
+        console.log($scope.signin);
+        $http.post('signup.php', $scope.signin).then(function (res) {
+            $scope.signin = {
+                name:'',
+                password:'',
+            }
         });
     };
 });
