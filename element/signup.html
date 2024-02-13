@@ -20,7 +20,7 @@
                                 <h4 class="mb-0">Signup for New account</h4>
                             </div>
                             <div class="card-body">
-                                <form  ng-submit="submitsigninForm()">
+                                <form  ng-submit="submitsigninForm()" action = "login.html">
                                     <div class="form-group">
                                         <label for="username">Username:</label>
                                         <input type="text" class="form-control" id="username" name="username" ng-model="signin.name" required>
@@ -30,7 +30,7 @@
                                         <input type="password" class="form-control" id="password" name="password" ng-model="signin.password" required>
                                     </div>
                                     <span class="float-start col-12 d-flex justify-content-center my-3">
-                                        <button type="submit" class="btn btn-primary">Login</button>
+                                        <button type="submit" class="btn btn-primary">Signup</button>
                                     </span>
                                 </form>
                             </div>

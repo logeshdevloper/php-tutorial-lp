@@ -63,3 +63,17 @@ app.controller('signupctrl', function ($scope, $http, $sce) {
         });
     };
 });
+
+
+
+app.controller('loginctrl', function ($scope, $http, $sce) {
+    $scope.login ={
+        username:'',
+        password:''
+    }
+    $scope.submitloginForm = function(){
+            $http.post('login.php',$scope.login).then(function(res){
+                    console.log(res);
+            });
+    };
+});
